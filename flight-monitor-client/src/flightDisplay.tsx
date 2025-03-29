@@ -1,3 +1,5 @@
+// React component that displays flight data in visual or text mode
+
 import React from "react";
 import "./App.css";
 
@@ -16,14 +18,14 @@ const FlightDisplay: React.FC<FlightDisplayProps> = ({
 }) => {
   const topPosition = `${(1 - altitude / 3000) * 200}px`;
 
-  // צבע לפי ADI
+  // ADI color based on value
   const adiClass = adi === 100 ? "blue" : adi === 0 ? "green" : "white";
 
   return (
     <div className="flight-container">
       {mode !== "text" && (
         <div className="visual-section">
-          {/* Altitude */}
+          {/* Altitude scale */}
           <div className="altitude-scale">
             <div
               className="altitude-indicator"
@@ -40,12 +42,12 @@ const FlightDisplay: React.FC<FlightDisplayProps> = ({
             ))}
           </div>
 
-          {/* HIS */}
+          {/* HIS display */}
           <div className="his-display">
-            {/* חץ שלא זז */}
+            {/* Static arrow */}
             <div className="arrow">▲</div>
 
-            {/* מעגל שמסתובב */}
+            {/* Rotating compass circle */}
             <div
               className="his-circle"
               style={{ transform: `rotate(${his}deg)` }}
@@ -77,14 +79,14 @@ const FlightDisplay: React.FC<FlightDisplayProps> = ({
             </div>
           </div>
 
-          {/* ADI */}
+          {/* ADI display */}
           <div className="adi-display">
             <div className={`circle ${adiClass}`}></div>
           </div>
         </div>
       )}
 
-      {/* TEXT MODE */}
+      {/* Text mode display */}
       {mode === "text" && (
         <div className="data-section">
           <div className="data-box">

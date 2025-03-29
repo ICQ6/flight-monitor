@@ -1,3 +1,5 @@
+// Main React component of the flight monitor app – displays flight data, allows user input and server interaction
+
 import React, { useState, useEffect } from "react";
 import FlightDisplay from "./flightDisplay";
 import "./App.css";
@@ -8,6 +10,7 @@ function App() {
   const [adi, setAdi] = useState(0);
   const [mode, setMode] = useState("none"); // "text" | "visual" | "input"
 
+  // Fetches current server status and latest flight data
   const fetchData = async () => {
     try {
       const res = await fetch("/api/status");
@@ -25,6 +28,7 @@ function App() {
     }
   };
 
+  // Switches to input mode and resets values to 0
   const handleInputMode = () => {
     setAltitude(0);
     setHis(0);
@@ -32,6 +36,7 @@ function App() {
     setMode("input");
   };
 
+  // Validates that input values are within the allowed range
   function isValid() {
     return (
       0 <= altitude &&
@@ -43,6 +48,7 @@ function App() {
     );
   }
 
+  // Sends flight data to the server if valid, then switches to visual mode
   const handleSubmit = async () => {
     try {
       if (isValid()) {
@@ -66,6 +72,7 @@ function App() {
     }
   };
 
+  // Fetches data when switching to text or visual mode
   useEffect(() => {
     if (mode === "text" || mode === "visual") {
       fetchData();
